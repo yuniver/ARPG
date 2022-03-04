@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Terric.Data;
 using Terric.Tool;
 using UnityEngine;
 
@@ -14,10 +15,11 @@ public class UIManager : Singleton<UIManager>
 
     private void Init()
     {
-        _panelPaths = getPath();
+        _panelPaths = getPathTable();
+        _panelsCache = new FPContainer<PanelBase>(10);//最多缓存10个常用UI
     }
 
-    private Dictionary<string, string> getPath()
+    private Dictionary<string, string> getPathTable()
     {
         TextAsset panels = LoadManager.Instance.Load<TextAsset>("UIPanels");
         var retVal = new Dictionary<string, string>();
@@ -31,7 +33,7 @@ public class UIManager : Singleton<UIManager>
             _panelStack = new Stack<PanelBase>();
 
         PanelBase panel = GetPanel(panelName);
-        _panelStack.Push();
+        _panelStack.Push(panel);
 
     }
 
@@ -39,16 +41,19 @@ public class UIManager : Singleton<UIManager>
     {
         if (_panelPaths == null)
         {
-            _panelPaths = new Dictionary<string, string>();
+            _panelPaths = getPathTable();
 
         }
 
-        if (!_panelsCache.GetValue(panelName))
+        var retVal = _panelsCache.GetValue(panelName);
+
+        if (retVal == null)
         {
-            _panelsCache.Add(LoadManager.Instance.Load<PanelBase>(panelName));
+            retVal = LoadManager.Instance.Load<PanelBase>(_panelPaths[panelName]);
+            _panelsCache.Add(retVal);
         }
 
-        return _panelsCache[panelName];
+        return retVal;
     }
 
 }
