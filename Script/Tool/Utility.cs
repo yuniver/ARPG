@@ -10,7 +10,7 @@ namespace Terric.Tool
     {
         public static string Localization(this string text, params string[] args)
         {
-            return string.Format(LoadManager.Instance.localizationTextTable[text][(int)GlobalManager.Instance.Currlanguage], args);
+            return string.Format(LoadManager.Instance.localizationTextTable[text][(int)GlobalManager.Instance.Config.Currlanguage], args);
         }
         //
         public static PanelBase GetValue(this List<PanelBase> list, string key)

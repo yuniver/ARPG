@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character : EntityBase
+public class CharacterController : EntityControllerBase
 {
     /// <summary>
     /// 定点数位置，单位为MM

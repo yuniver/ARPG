@@ -15,6 +15,20 @@ public enum Language
 
 public class GlobalManager : MonoSingleton<GlobalManager>
 {
-    private Language _currlanguage = Language.CHS;
-    public Language Currlanguage { get => _currlanguage; set => _currlanguage = value; }
+    public BuildingData Buildings { get => buildings; set => buildings = value; }
+    public CharacterData Characters { get => characters; set => characters = value; }
+    public MapData Maps { get => maps; set => maps = value; }
+    public PlayerData Player { get => player; set => player = value; }
+    public SystemConfigData Config { get => config; set => config = value; }
+    public GalleryData Gallery { get => gallery; set => gallery = value; }
+    public DialogData Dialog { get => dialog; set => dialog = value; }
+
+    private CharacterData characters;
+    private BuildingData buildings;
+    private MapData maps;
+    private GalleryData gallery;
+    private DialogData dialog;
+
+    private PlayerData player;
+    private SystemConfigData config;
 }
